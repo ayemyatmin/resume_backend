@@ -1,5 +1,5 @@
 export async function handler(event) {
-  // Your Lambda function logic here
+  // Lambda function logic here
 
   const response = {
     statusCode: 200,
