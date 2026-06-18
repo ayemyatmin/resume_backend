@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000r\u0000e\u0000s\u0000u\u0000m\u0000e\u0000_\u0000b\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayemyatmin/resume_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ayemyatmin/resume_backend/issues"
+  },
+  "homepage": "https://github.com/ayemyatmin/resume_backend#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1071.0",
+    "@aws-sdk/lib-dynamodb": "^3.1071.0"
+  }
+}
