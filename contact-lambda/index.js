@@ -120,8 +120,9 @@ exports.handler = async (event) => {
   }
 
   const sender = process.env.CONTACT_SENDER_EMAIL;
+  const confirmationSender = process.env.CONTACT_CONFIRMATION_SENDER_EMAIL;
   const recipient = process.env.CONTACT_RECIPIENT_EMAIL;
-  if (!sender || !recipient) {
+  if (!sender || !confirmationSender || !recipient) {
     console.error("Contact email configuration is missing.");
     return response(500, { error: "The contact form is temporarily unavailable." }, origin);
   }
@@ -152,8 +153,9 @@ exports.handler = async (event) => {
         Content: emailContent(`New contact message from ${name}`, ownerMessage)
       }),
       sendEmail({
-        FromEmailAddress: sender,
+        FromEmailAddress: confirmationSender,
         Destination: { ToAddresses: [email] },
+        ReplyToAddresses: [recipient],
         Content: emailContent(
           "Thanks for getting in touch",
           `Hello ${name},\n\nThanks for reaching out. Your message has been received, and I will get back to you as soon as I can.\n\nBest,\nAye`

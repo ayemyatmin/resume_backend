@@ -28,6 +28,7 @@ describe("Contact Lambda", () => {
     mockSend.mockReset();
     SendEmailCommand.mockClear();
     process.env.CONTACT_SENDER_EMAIL = "verified@example.com";
+    process.env.CONTACT_CONFIRMATION_SENDER_EMAIL = "hello@ayemyatmin.com";
     process.env.CONTACT_RECIPIENT_EMAIL = "owner@example.com";
     process.env.ALLOWED_ORIGINS = "https://ayemyatmin.com,https://www.ayemyatmin.com";
   });
@@ -41,10 +42,13 @@ describe("Contact Lambda", () => {
     expect(result.statusCode).toBe(202);
     expect(result.headers["Access-Control-Allow-Origin"]).toBe("https://ayemyatmin.com");
     expect(mockSend).toHaveBeenCalledTimes(2);
+    expect(sentMessages[0].FromEmailAddress).toBe("verified@example.com");
+    expect(sentMessages[1].FromEmailAddress).toBe("hello@ayemyatmin.com");
     expect(sentMessages[0].Destination.ToAddresses).toEqual(["owner@example.com"]);
     expect(sentMessages[0].ReplyToAddresses).toEqual([validSubmission.email]);
     expect(sentMessages[0].Content.Simple.Body.Text.Data).toContain(validSubmission.message);
     expect(sentMessages[1].Destination.ToAddresses).toEqual([validSubmission.email]);
+    expect(sentMessages[1].ReplyToAddresses).toEqual(["owner@example.com"]);
     expect(sentMessages[1].Content.Simple.Body.Text.Data).not.toContain(validSubmission.message);
   });
 
